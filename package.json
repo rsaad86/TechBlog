@@ -1,7 +1,7 @@
 {
-  "name": "tech-blog",
+  "name": "techblog",
   "version": "1.0.0",
-  "description": "",
+  "description": "![badge](https://img.shields.io/badge/license-MIT%20License-green)",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Brentsa/tech-blog.git"
+    "url": "git+https://github.com/rsaad86/TechBlog.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Brentsa/tech-blog/issues"
+    "url": "https://github.com/rsaad86/TechBlog/issues"
   },
-  "homepage": "https://github.com/Brentsa/tech-blog#readme",
+  "homepage": "https://github.com/rsaad86/TechBlog#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "connect-session-sequelize": "^7.1.1",
