@@ -1,10 +1,9 @@
 const authorized = (req, res, next) => {
-    if(!req.session.loggedIn){
-        res.redirect('/login');
-    }
-    else{
-        next();
-    }
-}
+  if (!req.session.loggedIn) {
+    res.redirect("/login");
+  } else {
+    next();
+  }
+};
 
-module.exports = authorized;
+export default authorized;

@@ -1,19 +1,16 @@
-//import router library as well as the api routes
-const router = require('express').Router();
-const apiRoutes = require('./api');
-const homeRoutes = require('./home-routes');
-const dashboardRoutes = require('./dashboard-routes');
+const router = require("express").Router();
+import apiRoutes from "./api";
+import homeRoutes from "./home-routes";
+import mainpageRoutes from "./mainpage-routes";
 
-//instruct router to use the api routes 
-router.use('/api', apiRoutes);
+router.use("/api", apiRoutes);
 
-//instruct router to use the dashboard routes
-router.use('/dashboard', dashboardRoutes);
+router.use("/mainpage", mainpageRoutes);
 
-//instruct router to use the home routes
-router.use('/', homeRoutes);
+router.use("/", homeRoutes);
 
-//send error code if route not found
-router.use((req, res) => {res.status(404).end()});
+router.use((req, res) => {
+  res.status(404).end();
+});
 
-module.exports = router;
+export default router;
