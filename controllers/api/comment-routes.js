@@ -1,7 +1,9 @@
 const router = require("express").Router();
-import { User, Post, Comment } from "../../models";
+const { User, Post, Comment } = require("../../models");
 
-//api comment-routes
+//Comments Routes
+
+//All comments
 router.get("/", (req, res) => {
   Comment.findAll({
     include: [
@@ -19,6 +21,7 @@ router.get("/", (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
+//Single comment
 router.get("/:id", (req, res) => {
   Comment.findOne({
     where: {
@@ -45,7 +48,7 @@ router.get("/:id", (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-//This creates a comment
+//Create comment
 router.post("/", (req, res) => {
   const { text, post_id } = req.body;
 
@@ -64,4 +67,4 @@ router.post("/", (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-export default router;
+module.exports = router;

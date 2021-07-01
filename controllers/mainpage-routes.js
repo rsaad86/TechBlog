@@ -1,6 +1,6 @@
 const router = require("express").Router();
-import { User, Post, Comment } from "../models";
-import authorized from "../utils/authorization";
+const { User, Post, Comment } = require("../models");
+const authorized = require("../utils/authorization");
 
 //Routes mainpage
 
@@ -27,4 +27,4 @@ router.get("/edit/:id", authorized, (req, res) => {
   res.render("mainpage-update-delete", { loggedIn: req.session.loggedIn });
 });
 
-export default router;
+module.exports = router;

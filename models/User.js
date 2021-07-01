@@ -1,17 +1,16 @@
 //import sequelize model class, datatypes, sequelize connection, and bcrypt for password hashing
-import { Model, DataTypes } from "sequelize";
-import sequelize from "../config/connection";
-import { compareSync, hash } from "bcrypt";
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/connection");
+const bcrypt = require("bcrypt");
 
 class User extends Model {
   //check the provided password again the user password and authenticate the user
   validatePassword(loginPassword) {
-    const valid = compareSync(loginPassword, this.password);
+    const valid = bcrypt.compareSync(loginPassword, this.password);
     return valid;
   }
 }
 
-//Define the model's fields and config
 User.init(
   {
     id: {
@@ -39,7 +38,7 @@ User.init(
   {
     hooks: {
       async beforeCreate(newUserData) {
-        newUserData.password = await hash(newUserData.password, 10);
+        newUserData.password = await bcrypt.hash(newUserData.password, 10);
         return newUserData;
       },
     },
@@ -50,4 +49,4 @@ User.init(
   }
 );
 
-export default User;
+module.exports = User;

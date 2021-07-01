@@ -1,19 +1,18 @@
-//Import libraries
-import express, { json, urlencoded, static } from "express";
-import { join } from "path";
-import sequelize, { sync } from "./config/connection";
-import routes from "./controllers";
-import { create } from "express-handlebars";
-import session, { Store } from "express-session";
-const SequelizeStore = require("connect-session-sequelize")(Store);
-import helpers from "./utils/helpers";
+const express = require("express");
+const path = require("path");
+const sequelize = require("./config/connection");
+const routes = require("./controllers");
+const exphbs = require("express-handlebars");
+const session = require("express-session");
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
+const helpers = require("./utils/helpers");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-const sessions = {
-  secret: "You can't see me, I am a secret!",
-  //Sets the expiration of the cookie
+const sess = {
+  secret: "You can't see me! I'm a secret",
+  //Sets the expiration of the cookie to be 5 minutes
   cookie: { maxAge: 60000 * 5 },
   resave: false,
   saveUninitialized: true,
@@ -21,19 +20,18 @@ const sessions = {
   rolling: true,
 };
 
-app.use(session(sessions));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-const hbs = create({ helpers });
+app.use(express.static(path.join(__dirname, "/public")));
+app.use(session(sess));
+
+const hbs = exphbs.create({ helpers });
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
-app.use(json());
-app.use(urlencoded({ extended: true }));
-
-app.use(static(join(__dirname, "/public")));
-
 app.use(routes);
 
-sync({ force: false }).then(() => {
+sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`App is listening on port: ${PORT}`));
 });

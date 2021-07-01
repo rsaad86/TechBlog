@@ -1,10 +1,10 @@
 const router = require("express").Router();
-import { Post, User, Comment } from "../../models";
-import authorized from "../../utils/authorization";
+const { Post, User, Comment } = require("../../models");
+const authorized = require("../../utils/authorization");
 
-// api/post-routes
+//API Posts
 
-//All posts
+//get all posts
 router.get("/", (req, res) => {
   Post.findAll({
     include: [
@@ -54,7 +54,7 @@ router.get("/:id", (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-//This creates a new post to the blog
+//New Post
 router.post("/", authorized, (req, res) => {
   const { title, content } = req.body;
 
@@ -73,7 +73,6 @@ router.post("/", authorized, (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-//This updates a posts title and content.
 router.put("/:id", authorized, (req, res) => {
   const { title, content } = req.body;
 
@@ -90,9 +89,7 @@ router.put("/:id", authorized, (req, res) => {
   )
     .then(dbUpdatedData => {
       if (!dbUpdatedData) {
-        res
-          .status(404)
-          .json({ message: "Post with this specific id not found." });
+        res.status(404).json({ message: "Post with specified id not found." });
         return;
       }
 
@@ -104,7 +101,6 @@ router.put("/:id", authorized, (req, res) => {
     });
 });
 
-//delete a post based on id
 router.delete("/:id", authorized, (req, res) => {
   Post.destroy({
     where: {
@@ -113,9 +109,7 @@ router.delete("/:id", authorized, (req, res) => {
   })
     .then(dbPostData => {
       if (!dbPostData) {
-        res
-          .status(404)
-          .json({ message: "There is no blog post associated with this id" });
+        res.status(404).json({ message: "No blog post found with this id" });
         return;
       }
       res.json(dbPostData);
@@ -126,4 +120,4 @@ router.delete("/:id", authorized, (req, res) => {
     });
 });
 
-export default router;
+module.exports = router;

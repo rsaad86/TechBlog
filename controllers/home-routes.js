@@ -1,5 +1,6 @@
 const router = require("express").Router();
-import { User, Post, Comment } from "../models";
+const sequelize = require("sequelize");
+const { User, Post, Comment } = require("../models");
 
 // Home routes
 
@@ -71,4 +72,4 @@ router.get("/post/:id", (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-export default router;
+module.exports = router;

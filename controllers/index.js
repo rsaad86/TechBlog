@@ -1,7 +1,7 @@
 const router = require("express").Router();
-import apiRoutes from "./api";
-import homeRoutes from "./home-routes";
-import mainpageRoutes from "./mainpage-routes";
+const apiRoutes = require("./api");
+const homeRoutes = require("./home-routes");
+const mainpageRoutes = require("./mainpage-routes");
 
 router.use("/api", apiRoutes);
 
@@ -13,4 +13,4 @@ router.use((req, res) => {
   res.status(404).end();
 });
 
-export default router;
+module.exports = router;

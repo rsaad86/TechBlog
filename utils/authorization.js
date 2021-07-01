@@ -6,4 +6,4 @@ const authorized = (req, res, next) => {
   }
 };
 
-export default authorized;
+module.exports = authorized;

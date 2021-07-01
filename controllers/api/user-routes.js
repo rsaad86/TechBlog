@@ -1,7 +1,7 @@
 const router = require("express").Router();
-import { User } from "../../models";
+const { User } = require("../../models");
 
-// api/user-routes
+//API User Routes
 
 //All db users
 router.get("/", (req, res) => {
@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-//Single db user
+//Get a single user
 router.get("/:id", (req, res) => {
   User.findOne({
     where: {
@@ -27,7 +27,7 @@ router.get("/:id", (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-//New db user
+//New DB User
 router.post("/", (req, res) => {
   const { username, password } = req.body;
 
@@ -48,7 +48,7 @@ router.post("/", (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-//Login for the user
+//Login User
 router.post("/login", (req, res) => {
   const { username, password } = req.body;
 
@@ -58,7 +58,6 @@ router.post("/login", (req, res) => {
     },
   })
     .then(dbUserData => {
-      //No account found if no data
       if (!dbUserData) {
         res.status(404).json({ message: "Account not found." });
         return;
@@ -67,11 +66,11 @@ router.post("/login", (req, res) => {
       const validPassword = dbUserData.validatePassword(password);
 
       if (!validPassword) {
-        res.status(404).json({ message: "Wrong password." });
+        res.status(404).json({ message: "Incorrect password." });
         return;
       }
 
-      //Saves the session if all login info is correct
+      //Save Session if login is good
       req.session.save(() => {
         req.session.username = dbUserData.username;
         req.session.user_id = dbUserData.id;
@@ -86,16 +85,14 @@ router.post("/login", (req, res) => {
 
 //Logout
 router.post("/logout", (req, res) => {
-  //Destroy session only when logged out
+  //Destroy session only if logout is successful
   if (req.session.loggedIn) {
     req.session.destroy(() => {
       res.status(204).end();
     });
-  }
-  //
-  else {
+  } else {
     res.status(204).end();
   }
 });
 
-export default router;
+module.exports = router;
