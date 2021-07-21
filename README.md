@@ -22,7 +22,7 @@ The Tech Blog is a social site where users can create blog posts for the tech co
 
 Create an account on the login page. Follow instructions on the dashboard page to create posts. From your dashboard, click on your posts to edit or delete them. From the homepage, you can view all posts on the site. Click a post to leave a comment. You will be signed out of your account after 5 mins of inactivity.
 
-![Website Image](TechBlog Picture.jpg)
+![Website Image](https://github.com/rsaad86/TechBlog/blob/main/TechBlog%20Picture.jpg)
 
 ## License
 
