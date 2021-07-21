@@ -1,6 +1,6 @@
 //import sequelize model class, datatypes, and sequelize connection
 const { Model, DataTypes } = require("sequelize");
-const sequelize = require("../config/connection").default;
+const sequelize = require("../config/connection");
 
 class Post extends Model {}
 
@@ -30,7 +30,7 @@ Post.init(
     },
   },
   {
-    sequelize: sequelize,
+    sequelize,
     freezeTableName: true,
     underscored: true,
     modelName: "post",

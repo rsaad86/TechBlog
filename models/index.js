@@ -1,7 +1,7 @@
 //import models
 const User = require("./User");
 const Post = require("./Post");
-const Comment = require("./Comment").default;
+const Comment = require("./Comment");
 
 //User has many posts, a post belongs to a single user
 User.hasMany(Post, { foreignKey: "user_id" });
